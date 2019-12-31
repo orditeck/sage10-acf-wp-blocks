@@ -1,0 +1,35 @@
+{
+  "name": "orditeck/sage10-acf-wp-blocks",
+  "description": "Composer library for generating ACF Gutenberg blocks from templates for Sage 10.",
+  "keywords": [
+    "wordpress",
+    "gutenberg",
+    "sage",
+    "acf",
+    "advanced custom fields"
+  ],
+  "homepage": "https://github.com/orditeck/sage10-acf-wp-blocks",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Michael W. Delaney",
+      "email": "michael@michaeldelaney.me"
+    },
+    {
+      "name": "Nico Prat"
+    },
+    {
+      "name": "Keven Lefebvre",
+      "email": "keven@nevek.co"
+    }
+  ],
+  "require": {
+    "php": ">=5.6",
+    "roots/acorn": "dev-master"
+  },
+  "autoload": {
+    "files": [
+      "sage-acf-gutenberg-blocks.php"
+    ]
+  }
+}
