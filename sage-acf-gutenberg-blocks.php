@@ -152,11 +152,10 @@ add_action('acf/init', function () {
  * @param bool $is_preview 
  * @param int $post_id
  * 
- * @return string The rendered view
+ * @return void
  */
 function sage_blocks_callback($block, $content = '', $is_preview = false, $post_id = 0)
 {
-
     // Set up the slug to be useful
     $slug  = str_replace('acf/', '', $block['name']);
     $block = array_merge(['className' => ''], $block);
