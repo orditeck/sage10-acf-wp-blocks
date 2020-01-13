@@ -42,18 +42,19 @@ add_action('acf/init', function () {
         foreach ($template_directory as $template) {
             if (!$template->isDot() && !$template->isDir()) {
 
-                // Strip the file extension to get the slug
-                $slug = removeBladeExtension($template->getFilename());
+                // Strip the file extension to get the name
+                $name = removeBladeExtension($template->getFilename());
 
-                // If there is no slug (most likely because the filename does
+                // If there is no name (most likely because the filename does
                 // not end with ".blade.php", move on to the next file.
-                if (!$slug) {
+                if (!$name) {
                     continue;
                 }
 
                 // Get header info from the found template file(s)
-                $file_path = locate_template($dir . "/${slug}.blade.php");
+                $file_path = locate_template($dir . "/${name}.blade.php");
                 $file_headers = get_file_data($file_path, [
+                    'slug' => 'Slug',
                     'title' => 'Title',
                     'description' => 'Description',
                     'category' => 'Category',
@@ -95,7 +96,8 @@ add_action('acf/init', function () {
 
                 // Set up block data for registration
                 $data = [
-                    'name' => $slug,
+                    'name' => $name,
+                    'slug' => $file_headers['slug'] ?: $name,
                     'title' => $file_headers['title'],
                     'description' => $file_headers['description'],
                     'category' => $file_headers['category'],
@@ -156,15 +158,14 @@ add_action('acf/init', function () {
  */
 function sage_blocks_callback($block, $content = '', $is_preview = false, $post_id = 0)
 {
-    // Set up the slug to be useful
-    $slug  = str_replace('acf/', '', $block['name']);
+    // Set up the name to be useful
+    $name  = str_replace('acf/', '', $block['name']);
     $block = array_merge(['className' => ''], $block);
 
     // Set up the block data
     $block['post_id'] = $post_id;
     $block['is_preview'] = $is_preview;
     $block['content'] = $content;
-    $block['slug'] = $slug;
     // Send classes as array to filter for easy manipulation.
     $block['classes'] = [
         $block['slug'],
@@ -174,13 +175,13 @@ function sage_blocks_callback($block, $content = '', $is_preview = false, $post_
     ];
 
     // Filter the block data.
-    $block = apply_filters("sage/blocks/{$slug}/data", $block);
+    $block = apply_filters("sage/blocks/{$name}/data", $block);
 
     // Join up the classes.
     $block['classes'] = implode(' ', array_filter($block['classes']));
 
     // Use Acron's view() function to echo the block and populate it with data
-    echo view("blocks/${slug}", [
+    echo view("blocks/${name}", [
         'block' => $block,
         'content' => $content,
         'is_preview' => $is_preview,

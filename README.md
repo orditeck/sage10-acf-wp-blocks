@@ -19,6 +19,7 @@ Add blade templates to `views/blocks` which get and use ACF data. Each template 
 ```blade
 {{--
   Title:
+  Slug:
   Description:
   Category:
   Icon:
@@ -37,6 +38,7 @@ Add blade templates to `views/blocks` which get and use ACF data. Each template 
 ```blade
 {{--
   Title: Testimonial
+  Slug: testimonial
   Description: Customer testimonial
   Category: formatting
   Icon: admin-comments
@@ -70,7 +72,8 @@ The options in the file header map to options in the [`acf_register_block_type` 
 
 | Field              | Description                                                                                                                                                                                                                                                          | Values                                                                 | Notes                                 |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------- |
-| `Title`            | Title of the block in the gutenberg editor                                                                                                                                                                                                                           | i.e. `Testimonial`                                                     | _required_                            |
+| `Title`            | Block's title in the gutenberg editor                                                                                                                                                                                                                                | i.e. `Testimonial`                                                     | _required_                            |
+| `Slug`             | Block's slug that is automatically added to its HTML classes. The default value is set to the block's filename (eg. `testimonial.blade.php` = `testimonial`)                                                                                                         | i.e. `testimonial`                                                     | _optional_ (defaults to filename)     |
 | `Description`      | Description of the block in the gutenberg editor                                                                                                                                                                                                                     | i.e. `My testimonial block`                                            | _optional_                            |
 | `Category`         | Category to store the block in. Use these values or [register your own custom block categories](https://wordpress.org/gutenberg/handbook/extensibility/extending-blocks/#managing-block-categories)                                                                  | `common`, `formatting`, `layout`, `widgets`, `embed`                   | _required_                            |
 | `Icon`             | An icon property can be specified to make it easier to identify a block. Uses [dashicons](https://developer.wordpress.org/resource/dashicons/)                                                                                                                       | i.e. `book-alt`                                                        | _optional_                            |
